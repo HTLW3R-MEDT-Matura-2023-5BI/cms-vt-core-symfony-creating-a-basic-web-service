@@ -2,9 +2,13 @@
 
 namespace App\Controller;
 
+use App\Entity\TimeMachine;
+use App\Repository\TimeMachineRepository;
+use http\Client\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\RedirectResponse as Response;
 
 class TimeMachineController extends AbstractController
 {
@@ -18,10 +22,9 @@ class TimeMachineController extends AbstractController
     }
 
     #[Route('/timeMachine/new', name: 'app_time_machine_post', methods: ['POST'])]
-    public function post(): JsonResponse
+    public function post(Request $request, TimeMachineRepository $timeMachineRepository): void
     {
-
+        $timeMachineEntry = new TimeMachine();
+        $timeMachineRepository->save($timeMachineEntry, true);
     }
-
-
 }
