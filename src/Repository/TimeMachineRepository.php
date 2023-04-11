@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\TimeMachine;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use PhpParser\Node\Expr\Cast\Object_;
 
 /**
  * @extends ServiceEntityRepository<TimeMachine>
@@ -37,6 +38,22 @@ class TimeMachineRepository extends ServiceEntityRepository
         if ($flush) {
             $this->getEntityManager()->flush();
         }
+    }
+
+    public function getRandomTimeMachine(): object
+    {
+        $TimeMachineIds = $this->createQueryBuilder('tm')->select('tm.id')->getQuery()->getSingleColumnResult();
+        if (count($TimeMachineIds) == 0) {
+            return new Object_();
+        }
+
+        $randomQuoteId = $TimeMachineIds[array_rand($TimeMachineIds)];
+
+        return $this->createQueryBuilder('tm')
+            ->where('tm.id = :id')
+            ->setParameter('id', $randomQuoteId)
+            ->getQuery()
+            ->execute()[0];
     }
 
 //    /**
