@@ -49,6 +49,7 @@ New property name (press <return> to stop adding fields):
 ````
 
 **Controller**
+
 Constructor -> initalizing JSON-Encoder
 ```php
 public function __construct()  
@@ -92,6 +93,7 @@ _As an ADMINISTRATOR I want to add test entries to the persistence layer, so tha
  
 ### Solution
 **Adding Data Fixtures**
+
 In the namespace ``namespace App\DataFixtures;`` add the fixtures you want to persist:
 ```php
 class AppFixtures extends Fixture  
@@ -124,6 +126,7 @@ _As a USER I want to retrieve a random entry from the database, so that I can st
 -   The response is returned as JSON object
 ### Solution
 **Getting a random Time Machine**
+
 Create a method in the Repository which selects a random Time Machine
 ```php
 public function getRandomTimeMachine(): object  
