@@ -81,7 +81,7 @@ public function post(Request $request, TimeMachineRepository $timeMachineReposit
 }
 ````
 
-## Creating Demo Code (App Fixtures)
+## Zwei Demo Einträge erstellen (App Fixtures)
 _As an ADMINISTRATOR I want to add test entries to the persistence layer, so that I can test querying entries later._
 
 ### Acceptance Criteria
@@ -115,7 +115,7 @@ class AppFixtures extends Fixture
 }
 ````
 
-## Get a random Entry from the Database using the Repository
+## Einen zufälligen Eintrag aus der Datenbank abrufen
 _As a USER I want to retrieve a random entry from the database, so that I can start a philosophical discussion on it._
 
 ### Acceptance Criteria
