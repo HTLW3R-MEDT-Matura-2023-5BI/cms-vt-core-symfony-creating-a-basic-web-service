@@ -1,6 +1,6 @@
 ﻿# CMS-VT | CORE | Symfony - Creating a basic web service
 
-## User Story 1
+## Erstellung einer Entität und einer POST Controller Methode
 _As an ADMINISTRATOR I want to be able to add new time machine resources to the database, so that the public can query for them later_
 
 ### Acceptance Criteria
@@ -14,7 +14,7 @@ _As an ADMINISTRATOR I want to be able to add new time machine resources to the 
 -   An authentication check is not mandatory at this point in time.
 ### Solution
 **Entity Entry**
-````
+```php
 $ php bin/console make:entity
 
 Class name of the entity to create or update:
@@ -50,7 +50,7 @@ New property name (press <return> to stop adding fields):
 
 **Controller**
 Constructor -> initalizing JSON-Encoder
-````
+```php
 public function __construct()  
 {  
   // https://symfony.com/doc/current/components/serializer.html#usage  
@@ -60,7 +60,7 @@ public function __construct()
 }
 ````
 POST Function to create new TimeMachine entries from JSON Request
-````
+```php
 #[Route('/new', name: 'app_time_machine_post', methods: ['POST'])]  
 public function post(Request $request, TimeMachineRepository $timeMachineRepository): Response  
 {  
@@ -81,7 +81,7 @@ public function post(Request $request, TimeMachineRepository $timeMachineReposit
 }
 ````
 
-## User Story 2
+## Creating Demo Code (App Fixtures)
 _As an ADMINISTRATOR I want to add test entries to the persistence layer, so that I can test querying entries later._
 
 ### Acceptance Criteria
@@ -93,7 +93,7 @@ _As an ADMINISTRATOR I want to add test entries to the persistence layer, so tha
 ### Solution
 **Adding Data Fixtures**
 In the namespace ``namespace App\DataFixtures;`` add the fixtures you want to persist:
-````
+```php
 class AppFixtures extends Fixture  
 {  
   public function load(ObjectManager $manager)  
@@ -115,7 +115,7 @@ class AppFixtures extends Fixture
 }
 ````
 
-## User Story 3
+## Get a random Entry from the Database using the Repository
 _As a USER I want to retrieve a random entry from the database, so that I can start a philosophical discussion on it._
 
 ### Acceptance Criteria
@@ -125,7 +125,7 @@ _As a USER I want to retrieve a random entry from the database, so that I can st
 ### Solution
 **Getting a random Time Machine**
 Create a method in the Repository which selects a random Time Machine
-````
+```php
 public function getRandomTimeMachine(): object  
 {  
     $TimeMachineIds = $this->createQueryBuilder('tm')->select('tm.id')->getQuery()->getSingleColumnResult();  
@@ -143,7 +143,7 @@ public function getRandomTimeMachine(): object
 }
 ````
 **Call the Method ``getRandomTimeMachine()`` in the Controller**
-````
+```php
 #[Route('/random', name: 'app_time_machine_random', methods: ['GET'])]  
 public function randomTimeMachine(TimeMachineRepository $timeMachineRepository): Response {  
     $timeMachines = $timeMachineRepository->getRandomTimeMachine();  
