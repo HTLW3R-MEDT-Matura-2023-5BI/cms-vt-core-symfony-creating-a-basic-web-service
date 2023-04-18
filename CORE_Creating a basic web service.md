@@ -74,6 +74,7 @@ public function __construct()
 
   $this->serializer = new Serializer([$normalizer], [$encoder]);
 }
+````
 POST Function to create new TimeMachine entries from JSON Request
 ```php
 #[Route('/new', name: 'app_time_machine_post', methods: ['POST'])]  
