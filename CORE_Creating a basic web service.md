@@ -60,6 +60,20 @@ public function __construct()
   $this->serializer = new Serializer($normalizers, $encoders);  
 }
 ````
+Constructor -> initalizing JSON-Encoder with Relations
+```php
+public function __construct()
+{
+  $encoder = new JsonEncoder();
+  $defaultContext = [
+      AbstractNormalizer::CIRCULAR_REFERENCE_HANDLER => function ($object, $format, $context) {
+	  return $object->getName();
+      },
+  ];
+  $normalizer = new ObjectNormalizer(null, null, null, null, null, null, $defaultContext);
+
+  $this->serializer = new Serializer([$normalizer], [$encoder]);
+}
 POST Function to create new TimeMachine entries from JSON Request
 ```php
 #[Route('/new', name: 'app_time_machine_post', methods: ['POST'])]  
